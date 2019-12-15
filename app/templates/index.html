@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>{{ title }} - Microblog</title>
+		<!-- <link rel="stylesheet" href="app/index.css"> -->
+    </head>
+    <body>
+        <h1>Hello, {{ user.username }}! Welcome to our *Snippet Tracker*</h1>
+			
+			
+			<div class="pane-left" id="snippet-sidebar" style='float: left; margin-left: 5px'>
+				<p>
+					<input class="form-control" type="text" value="" placeholder="Search" m-model="query" onkeyup="searchFunction()" id="search" style='margin-left: 5px'/>
+				</p>
+				
+				<ul id="selectList">
+				{% for post in list %}
+				<li><a href="#" value="https://gist.github.com/codegoalie/cffb86f33642af400317d3156fdc5dd4.js" onclick="selectSnippet(this.value); return false">{{ post }} says: <b>{{ post }}</a></b></li>
+				{% endfor %}
+				</ul>
+				
+				<script>
+					function searchFunction() {
+							var input, filter, ul, li, a, i, txtValue;
+							input = document.getElementById("search");
+							filter = input.value.toUpperCase();
+							ul = document.getElementById("selectList");
+							li = ul.getElementsByTagName("li");
+							for (i = 0; i < li.length; i++) {
+								a = li[i].getElementsByTagName("a")[0];
+								txtValue = a.textContent || a.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									li[i].style.display = "";
+								} else {
+									li[i].style.display = "none";
+								}
+							}
+						}
+						
+				</script>
+				
+			</div>
+			
+			<div class="main-pane" id="snippet-view-pane" style='padding: 10px'>
+				<!-- <script src="https://gist.github.com/codegoalie/cffb86f33642af400317d3156fdc5dd4.js"></script> -->
+				
+				
+				<script src={}>
+					/* function selectSnippet(href){
+						var snippetAddress="https://gist.github.com/codegoalie/cffb86f33642af400317d3156fdc5dd4.js";
+						var scr = document.createElement("script");
+						scr.type = "text/javascript";
+						scr.src = snippetAddress;
+						document.getElementById("snippet-view-pane").innerHTML = scr.src;
+						document.getElementById("snippet-view-pane").appendChild(scr);
+						//document.getElementById("snippet-src").src=snippetAddress;
+						//alert(document.getElementById("snippet-src").src);
+
+						
+						var scripts = document.getElementById("snippet-view-pane").getElementsByTagName('script');
+						for (var ix = 0; ix < scripts.length; ix++) {
+							eval(scripts[ix].text);
+							alert(scripts[ix].src);
+						} */
+						
+					}
+				</script>
+				
+				
+			</div>
+		
+    </body>
+</html>
