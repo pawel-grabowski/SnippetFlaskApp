@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
-	<ul id="maintList" style="list-style-type:none;">
-		{% for post in list %}
-			<li><p>{{ content[post] }} </p></li>
-		{% endfor %}
-	</ul>
-	
 
+	<div>
+	
+		<ul id="maintList" style="list-style-type:none;">
+			{% for post in list %}
+				<li>
+					<pre class="prettyprint">
+						<p>{{ content[post] }} </p>
+					</pre>
+				</li>
+			{% endfor %}
+		</ul>
+		
+	</div>
 	
 {% endblock %}

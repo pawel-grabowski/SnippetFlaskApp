@@ -1,56 +1,85 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{{ title }} - Microblog</title>
-		<!-- <link rel="stylesheet" href="app/index.css"> -->
+        <title>{{ title }} - Flask app</title>
+		<style>
+		body {
+		  background-color: #292525;
+		}
+		
+		</style>
     </head>
-    <body>
-        <h1>Hello, {{ user.username }}! Welcome to our *Snippet Tracker*</h1>
+    <body class="body">
+        <h3 style="color: #84b1b3;">Hello, {{ user.username }}! Welcome to our *Snippet Tracker*</h3>
 			
-			<div class="pane-top" id="topbar" style='float: top; margin: 15px'>
-				<span>
-					<button class="menu-button">Menu 1</button>
-					<button class="menu-button">Menu 1</button>
-					<button class="menu-button">Menu 1</button>
-					<button class="menu-button">Menu 1</button>
-				</span>
-			</div>
+		<div class="pane-top" id="topbar" style='float: top; margin: 15px'>
+			<span>
+				<button class="menu-button" style="background-color: #59755d;">Menu_dummy_button</button>
+			</span>
+		</div>
+		
+		<div class="pane-left" id="snippet-sidebar" style='float: left; margin: 5px; border-style: solid; height: 80%;'>
+			<p>
+				<input class="form-control" type="text" value="" placeholder="Search" m-model="query" onkeyup="searchFunction()" id="search" style='margin-left: 5px; margin-right: 5px; background-color: #7e878a;'/>
+			</p>
 			
-			<div class="pane-left" id="snippet-sidebar" style='float: left; margin: 5px; border-style: solid; height: 80%;'>
-				<p>
-					<input class="form-control" type="text" value="" placeholder="Search" m-model="query" onkeyup="searchFunction()" id="search" style='margin-left: 5px'/>
-				</p>
-				
-				<ul id="selectList" style="list-style-type:none;">
-				{% for post in list %}
-				<li><button class="small-button">* {{ post }} </button></li>
-				{% endfor %}
-				</ul>
-				
-				<script>
-					function searchFunction() {
-							var input, filter, ul, li, a, i, txtValue;
-							input = document.getElementById("search");
-							filter = input.value.toUpperCase();
-							ul = document.getElementById("selectList");
-							li = ul.getElementsByTagName("li");
-							for (i = 0; i < li.length; i++) {
-								a = li[i].getElementsByTagName("button")[0];
-								txtValue = a.textContent || a.innerText;
-								if (txtValue.toUpperCase().indexOf(filter) > -1) {
-									li[i].style.display = "";
-								} else {
-									li[i].style.display = "none";
-								}
+			<ul id="selectList" style="list-style-type:none; padding: 0;margin-left: 0">
+			{% for post in list %}
+			<li><button class="small-button" id="{{ post }}" onclick="limitView(this.id)" style="width: 100%; background-color: #868383;">* {{ post }} </button></li>
+			{% endfor %}
+			</ul>
+			
+			<script>
+				function searchFunction() {
+						var input, filter, ul, li, a, i, txtValue;
+						input = document.getElementById("search");
+						filter = input.value.toUpperCase();
+						ul = document.getElementById("selectList");
+						li = ul.getElementsByTagName("li");
+						for (i = 0; i < li.length; i++) {
+							a = li[i].getElementsByTagName("button")[0];
+							txtValue = a.textContent || a.innerText;
+							if (txtValue.toUpperCase().indexOf(filter) > -1) {
+								li[i].style.display = "";
+							} else {
+								li[i].style.display = "none";
 							}
 						}
-				</script>
-				
-			</div>
+					}
+			</script>
 			
-			<div class="main-pane" id="snippet-view-pane" style='float: left; margin: 5px; border-style: solid; height: 80%; width: 70%;'>
-				<!-- <script src="https://gist.github.com/codegoalie/cffb86f33642af400317d3156fdc5dd4.js"></script> -->
-				{% block content %}{% endblock %}
-			</div>
+		</div>
+		
+		<div class="main-pane" id="snippet-view-pane" style='float: left; margin: 5px; border-style: solid; height: 80%; width: 70%;'>
+			<!-- <script src="https://gist.github.com/codegoalie/cffb86f33642af400317d3156fdc5dd4.js"></script> -->
+			{% block content %}{% endblock %}
+			
+			<script>
+				function limitView(caller_id) {
+						var input,filter, ul, li, a,b, i, txtValue;
+						//input = document.getElementById(caller_id)
+						filter = caller_id.toUpperCase();
+						
+						ul = document.getElementById("maintList");
+						li = ul.getElementsByTagName("li");
+						for (i = 0; i < li.length; i++) {
+							a = li[i].getElementsByTagName("pre")[0];
+							b = a.getElementsByTagName("p")[0];
+							txtValue = b.textContent || b.innerText;
+							if (txtValue.toUpperCase().indexOf(filter) > -1) {
+								li[i].style.display = "";
+							} else {
+								li[i].style.display = "none";
+							}
+						}
+					}
+			</script>				
+			
+		</div>
+		
+		<!-- call prettify.js and then initialize the Google Code prettify -->
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+		<script>window.onload = (function(){ prettyPrint(); });</script>
 		
     </body>
 </html>
