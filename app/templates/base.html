@@ -2,19 +2,14 @@
 <html>
     <head>
         <title>{{ title }} - Flask app</title>
-		<style>
-		body {
-		  background-color: #292525;
-		}
-		
-		</style>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
     <body class="body">
-        <h3 style="color: #84b1b3;">Hello, {{ user.username }}! Welcome to our *Snippet Tracker*</h3>
+        <!-- <h3 style="color: #84b1b3;">Hello, {{ user.username }}! Welcome to our *Snippet Tracker*</h3> -->
 			
 		<div class="pane-top" id="topbar" style='float: top; margin: 15px'>
 			<span>
-				<button class="menu-button" style="background-color: #59755d;">Menu_dummy_button</button>
+				<button class="menu-button" style="background-color: #59755d;" onlick="window.location.reload();">Reload</button>
 			</span>
 		</div>
 		
@@ -25,7 +20,7 @@
 			
 			<ul id="selectList" style="list-style-type:none; padding: 0;margin-left: 0">
 			{% for post in list %}
-			<li><button class="small-button" id="{{ post }}" onclick="limitView(this.id)" style="width: 100%; background-color: #868383;">* {{ post }} </button></li>
+			<li><button class="small-button" id="{{ post }}" onclick="limitView(this.id)" style="width: 100%; max-width: 250px; background-color: #868383;">* {{ post }} </button></li>
 			{% endfor %}
 			</ul>
 			
