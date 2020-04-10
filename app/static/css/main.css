@@ -7,7 +7,6 @@ html, body {
 
 body {
 	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-	font: white;
 }
 
 header {
@@ -28,18 +27,52 @@ header h1 {
 	padding: 0;
 }
 
-
-
-pane-left {
-  width: 100px;
-  min-width: 100px;
-  overflow: auto;
-  float: left;
-  margin-left: 5px;
+.pane-top {
+	width: 100%;
+	min-width: 100px;
+	float: top; 
+	margin: 5px; 
+	background-color: #1d1f21;
 }
 
 
-main-pane {
-  padding: 10px;
-  float: center;
+.pane-left {
+	width: 20%;
+	min-width: 100px;
+	float: left;
+	margin-left: 5px;
+	border-style: solid;
+	padding: 0;
+}
+
+.pane-left-input {
+	width: 100%;
+	min-width: 100px;
+	overflow: auto;
+	float: top;
+	margin-left: 5px;
+}
+
+.pane-left-list {
+	width: 100%;
+	min-width: 100px;
+	height: 80%;
+	overflow: auto;
+	float: top;
+	margin-left: 5px;
+}
+
+.form-control {
+	margin-left: 0px;
+	margin-right: 0px;
+	background-color: #7e878a;
+	
+}
+
+.main-pane {
+	padding: 5px;
+	float: left; 
+	border-style: none; 
+	height: 80%; 
+	width: 70%;
 }

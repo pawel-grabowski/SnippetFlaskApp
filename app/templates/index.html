@@ -4,11 +4,11 @@
 
 	<div>
 	
-		<ul id="maintList" style="list-style-type:none; padding: 5; margin-left: 0" >
+		<ul id="maintList" style="list-style-type:none; padding: 5px; margin-left: 0px; margin-top: 0px" >
 			{% for post in list %}
 				<li>
 					<pre class="prettyprint">
-						<p>{{ content[post] }} </p>
+						<p style="padding: 10px;">{{ content[post] }}</p>
 					</pre>
 				</li>
 			{% endfor %}

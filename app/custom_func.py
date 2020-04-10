@@ -9,17 +9,18 @@ def read_files(file_path):
     
 def split_files(content):
     # podzial na fragment wg z znacznika
-    content = content.replace(";\n",";\n<stop>")
+    content = content.replace("\n/*",";\n<stop>/*")
     splitted = content.split("<stop>")
     snippets = []
     
     for sn in splitted:
         header = re.search('\/\*(.+?)\*\/', sn)
         
-        header = header.group(1)
-        
-        snippet = {"title": header, "code": sn}
-        snippets.append(snippet)
+        if header:
+            header = header.group(1)
+            
+            snippet = {"title": header, "code": sn}
+            snippets.append(snippet)
     
     return snippets
     
