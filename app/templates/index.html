@@ -7,6 +7,9 @@
 		<ul id="maintList" style="list-style-type:none; padding: 5px; margin-left: 0px; margin-top: 0px" >
 			{% for post in list %}
 				<li>
+					<button class="copy-button" type="button" onmouseup="toClipboard(this)">
+						C
+					</button>
 					<pre class="prettyprint">
 						<p style="padding: 10px;">{{ content[post] }}</p>
 					</pre>
@@ -15,5 +18,24 @@
 		</ul>
 		
 	</div>
+	
+	<script>
+		function toClipboard(caller){
+			//ul = document.getElementById("maintList");
+			//li = ul.getElementsByTagName("li");
+			//a = li[0].getElementsByTagName("button")[0];
+			
+			a = caller.parentElement.getElementsByTagName("pre")[0];
+			b = a.getElementsByTagName("p")[0];
+			txtValue = b.textContent || b.innerText;
+			//alert(txtValue);
+			
+			ta = document.createElement("textarea"); 
+			ta.textContent = txtValue; 
+			document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+			
+		}
+	</script>
+	
 	
 {% endblock %}

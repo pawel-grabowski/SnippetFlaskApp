@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> <!-- nie działa akrusz stylów w pliku -->
-		
+		 <!-- button icons -->
 		<style>
 		
 			html, body {
@@ -52,16 +52,17 @@
 				overflow: auto;
 				float: top;
 				margin-left: 0px;
+				
 			}
 
 			.pane-left-list {
 				width: 100%;
 				min-width: 50px;
 				height: 380px;
-				min-height: 378px;
 				float: left;
 				margin-left: 0px;
 				background-color: #292525;
+				border-radius: 5px;
 			}
 
 			.form-control {
@@ -72,6 +73,7 @@
 				background-color: #1d1f21;
 				color: #868383;
 				border-style: none;
+				border-radius: 5px;
 				
 			}
 
@@ -85,6 +87,7 @@
 				margin-left: 7px;
 				background-color: #292525;
 				border-style: none;
+				border-radius: 5px;
 				
 			}
 			
@@ -100,6 +103,7 @@
 			
 			.small-button:hover{
 				background-color: #044;
+				cursor: pointer;
 			}
 			
 			.menu-button{
@@ -117,6 +121,7 @@
 			
 			.menu-button:hover{
 				background-color: #044;
+				cursor: pointer;
 			}
 			
 			.footer{
@@ -134,12 +139,19 @@
 			}
 			
 			.copy-button{
-			float: right;
-			bottom: 0px;
-			
-			
+				float: right;
+				bottom: 0px;
+				border-style: none;
+				background-color: #1d1f21;
+				color: #ffffff;
+				border-radius: 5px;
+				box-shadow: 4px 4px 4px 0px black;
 			}
 			
+			.copy-button:hover{
+				background-color: #292525;
+				cursor: pointer;
+			}
 			
 			<!-- scrollbar style -->		
 			/* width */
@@ -170,17 +182,16 @@
     <body class="body">
         <!-- <h3>Hello, {{ user.username }}!</h3> -->	
 		
-		
-			<div class="pane-top" id="topbar" >
-				<span>
-					<button class="menu-button" onlick="window.location.reload();"style="margin-left: 5px;">Reload</button>
-					<button class="menu-button" onlick="window.location.reload();">SQL</button>
-					<button class="menu-button" onlick="window.location.reload();">VBA</button>
-					<button class="menu-button" onlick="window.location.reload();">R</button>
-					<button class="menu-button" onlick="window.location.reload();">Python</button>
-					<button class="menu-button" onlick="#" style="float:right; width: 70px; margin-right: 5px;">Settings</button>
-				</span>
-			</div>
+		<div class="pane-top" id="topbar" >
+			<span>
+				<button class="menu-button" id="reloadBtn" onmouseup="window.location.reload()" style="margin-left: 5px;">Reload</button>
+				<button class="menu-button" onmouseup="alert('ALERT'); return false;">SQL</button>
+				<button class="menu-button" onlick="window.location.reload()">VBA</button>
+				<button class="menu-button" onlick="window.location.reload()">R</button>
+				<button class="menu-button" onlick="window.location.reload()">Python</button>
+				<button class="menu-button" onlick="#" style="float:right; width: 70px; margin-right: 5px;">Settings</button>
+			</span>
+		</div>
 			
 		<div class="container">
 			<div class="pane-left" >	
@@ -198,24 +209,24 @@
 					</ul>
 				</div>				
 					
-					<script>
-						function searchFunction() {
-								var input, filter, ul, li, a, i, txtValue;
-								input = document.getElementById("search");
-								filter = input.value.toUpperCase();
-								ul = document.getElementById("selectList");
-								li = ul.getElementsByTagName("li");
-								for (i = 0; i < li.length; i++) {
-									a = li[i].getElementsByTagName("button")[0];
-									txtValue = a.textContent || a.innerText;
-									if (txtValue.toUpperCase().indexOf(filter) > -1) {
-										li[i].style.display = "";
-									} else {
-										li[i].style.display = "none";
-									}
+				<script>
+					function searchFunction() {
+							var input, filter, ul, li, a, i, txtValue;
+							input = document.getElementById("search");
+							filter = input.value.toUpperCase();
+							ul = document.getElementById("selectList");
+							li = ul.getElementsByTagName("li");
+							for (i = 0; i < li.length; i++) {
+								a = li[i].getElementsByTagName("button")[0];
+								txtValue = a.textContent || a.innerText;
+								if (txtValue.toUpperCase().indexOf(filter) > -1) {
+									li[i].style.display = "";
+								} else {
+									li[i].style.display = "none";
 								}
 							}
-					</script>
+						}
+				</script>
 
 			</div>	
 			
@@ -243,12 +254,12 @@
 							}
 						}
 				</script>				
-				
+
 			</div>
 			
 			<!-- call prettify.js and then initialize the Google Code prettify -->
 			<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
-			<script>window.onload = (function(){ prettyPrint(); });</script>
+			<!-- <script>window.onload = (function(){ prettyPrint(); });</script> -->
 			
 		</div>
 		
