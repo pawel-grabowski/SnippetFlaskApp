@@ -46,6 +46,59 @@
 				
 			}
 
+			.pane-left-bar{
+				float: left;
+				margin: 0px;
+				width: 2px;
+				height: 100%;
+			}
+			
+			
+			/* Small screens */
+			@media only screen and (max-width: 540px) {
+					
+				.pane-left {
+					width: 100%;
+					min-width: 0px;
+					min-height: 2rem;
+					float: top;
+					
+				}
+			  
+				.pane-left:hover {
+					width: 100%;
+					min-width: 100px;
+					float: top;
+				}		  
+			  
+				.pane-left-list {
+					width: 100%;
+					height: 1rem;
+					margin-left: 0px;
+					float: top;
+					overflow: auto;
+				}
+				
+				.pane-left-list:hover {
+					width: 100%;
+					height: 100%;
+				}
+				
+				
+				.main-pane {
+					width: 100vw;
+					margin-left: 0px;
+					margin-top: 5px;
+					padding: 1rem;
+					float: left;
+					background-color: #292525;
+					border-style: none;
+					border-radius: 5px;
+				}
+				
+			}
+
+
 			.pane-left-input {
 				width: 100%;
 				min-width: 100px;
@@ -54,17 +107,34 @@
 				margin-left: 0px;
 				
 			}
-
-			.pane-left-list {
-				width: 100%;
-				min-width: 50px;
-				height: 380px;
-				float: left;
-				margin-left: 0px;
-				background-color: #292525;
-				border-radius: 5px;
+			
+			/* Large screens */
+			@media only screen and (min-width: 541px) {
+				.pane-left-list {
+					width: 100%;
+					min-width: 50px;
+					height: 380px;
+					float: left;
+					margin-left: 0px;
+					background-color: #292525;
+					border-radius: 5px;
+					
+				}
+				
+				.main-pane {
+					width: 75%;
+					height: 420px;
+					min-height: 420px;
+					padding: 0px;
+					float: left;
+					overflow: auto;
+					margin-left: 7px;
+					background-color: #292525;
+					border-style: none;
+					border-radius: 5px;
+					
+				}
 			}
-
 			.form-control {
 				width: 100%;
 				height: 25px;
@@ -77,19 +147,6 @@
 				
 			}
 
-			.main-pane {
-				width: 75%;
-				height: 420px;
-				min-height: 420px;
-				padding: 0px;
-				float: left;
-				overflow: auto;
-				margin-left: 7px;
-				background-color: #292525;
-				border-style: none;
-				border-radius: 5px;
-				
-			}
 			
 			
 			.small-button{
@@ -146,6 +203,7 @@
 				color: #ffffff;
 				border-radius: 5px;
 				box-shadow: 4px 4px 4px 0px black;
+				margin: 1px
 			}
 			
 			.copy-button:hover{
@@ -159,6 +217,7 @@
 				--thumbBG: #333333;
 			}
 			
+			/*scrollbar - main */
 			.main-pane::-webkit-scrollbar {
 				width: 11px;
 			}
@@ -175,6 +234,7 @@
 				border: 3px solid var(--scrollbarBG);
 			}
 			
+			/*scrollbar - left pane */
 			.pane-left-list::-webkit-scrollbar {
 				width: 11px;
 			}
@@ -210,9 +270,8 @@
 			
 		<div class="container">
 			<div class="pane-left" >	
-			
 				<div class="pane-left-input" id="sidebar-search" >
-					<input class="form-control" type="text" value="" placeholder="Search..." m-model="query" onkeyup="searchFunction()" id="search" />
+					<input class="form-control" type="text" value="" placeholder="Search..." m-model="query" onkeyup="searchFunction()" id="search" accesskey="f"/>
 					<p></p>
 				</div>
 
@@ -276,6 +335,87 @@
 			<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
 			<!-- <script>window.onload = (function(){ prettyPrint(); });</script> -->
 			
+			<script> 
+				window.onload = (function(){
+					if (window == top) {
+						window.addEventListener('keyup', doKeyPress, false);
+					}
+
+					function doKeyPress(event){
+						
+						if(event.shiftKey) {
+							if(event.keyCode == 191) {
+								alert('Shortcuts: \n Shift+Alt+F or / - Search \n Ctrl+Up - Previous \n Ctrl+Down  - Next \n Ctrl+C - Copy Snippet \n ');
+								
+							}   
+						}
+						
+						
+						if(event.ctrlKey && !event.altKey && !event.shiftKey) {
+							if(String.fromCharCode(event.keyCode) == 'C') {
+							
+								var snippets_list = document.getElementById("maintList").getElementsByTagName("button");
+								
+								for (i=0; i<snippets_list.length; i++){
+									//check visibility
+									if(snippets_list[i].offsetParent != null){
+										toClipboard(snippets_list[i]);
+										break ;
+									}
+								
+								}
+							}    
+						}
+						
+						if(!event.ctrlKey && !event.altKey && !event.shiftKey) {
+							if(String.fromCharCode(event.keyCode) == 'K') {
+								if(document.activeElement.tagName != "INPUT"){
+									focusNextElement()
+								}
+								
+							}  
+							
+							if(String.fromCharCode(event.keyCode) == 'J') {
+								if(document.activeElement.tagName != "INPUT"){
+									focusPreviousElement()
+								}								
+							}
+  							
+							//keyCode == 191 - "/"
+							if(event.keyCode == 191) {
+								document.getElementById("search").focus();	
+							}  							
+							
+						}						
+						
+						
+					}
+				});
+				
+				
+				function focusNextElement(){
+				  var focusable = [].slice.call(document.querySelectorAll("button")).filter(function($e){
+					if($e.disabled || ($e.getAttribute("tabindex") && parseInt($e.getAttribute("tabindex"))<0)) return false;
+					return true;
+				  }).sort(function($a, $b){
+					return (parseFloat($a.getAttribute("tabindex") || 99999) || 99999) - (parseFloat($b.getAttribute("tabindex") || 99999) || 99999);
+				  });
+				  var focusIndex = focusable.indexOf(document.activeElement);
+				  if(focusable[focusIndex+1]) focusable[focusIndex+1].focus();
+				};
+				
+				function focusPreviousElement(){
+				  var focusable = [].slice.call(document.querySelectorAll("button")).filter(function($e){
+					if($e.disabled || ($e.getAttribute("tabindex") && parseInt($e.getAttribute("tabindex"))<0)) return false;
+					return true;
+				  }).sort(function($a, $b){
+					return (parseFloat($a.getAttribute("tabindex") || 99999) || 99999) - (parseFloat($b.getAttribute("tabindex") || 99999) || 99999);
+				  });
+				  var focusIndex = focusable.indexOf(document.activeElement);
+				  if(focusable[focusIndex-1]) focusable[focusIndex-1].focus();
+				};
+				
+			</script>
 		</div>
 		
 		<div class="footer" align=center>
