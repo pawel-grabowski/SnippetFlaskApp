@@ -2,19 +2,33 @@ import re
 import os
 
 def read_files(file_path):
-    with open(file_path) as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         content=f.read()
     return content
     
     
 def split_files(content):
     # podzial na fragment wg z znacznika
-    content = content.replace("\n/*",";\n<stop>/*")
-    splitted = content.split("<stop>")
+    content = content.replace("\n/*",";\n<%stop%>/*") # SQL-JS
+    content = content.replace("\n##",";\n<%stop%>##") # R
+    content = content.replace("\n#%%",";\n<%stop%>#%%") # Py
+    content = content.replace("\n#\s%%",";\n<%stop%>#\s%%") # Py
+    content = content.replace("\n\'#",";\n<%stop%>\'#") # VBA
+    
+    splitted = content.split("<%stop%>")
     snippets = []
     
     for sn in splitted:
-        header = re.search('\/\*(.+?)\*\/', sn)
+        
+        header = re.search('\/\*(.+?)\*\/', sn) # SQL-JS
+        if not header:
+            header = re.search('#(.+?)----', sn) # R
+        if not header:
+            header = re.search('#%%(.+?)\n', sn) # Py
+        if not header:
+            header = re.search('# %%(.+?)\n', sn) # Py
+        if not header:
+            header = re.search('\'#(.+?)\n', sn) # VBA
         
         if header:
             header = header.group(1)

@@ -7,7 +7,11 @@ from app import custom_func as cf
 
 def index():
     user = {'username': 'Pawel'}
-    file_path = "C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/"
+    
+    with open('./config.txt', 'r', encoding='utf-8') as f:
+        file_path=f.read()
+        
+#     file_path = "C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/"
     snippets_dict = cf.get_inner_dict(cf.load_all_files(file_path))
     
     list = cf.get_keys(snippets_dict) #['aaa','bbb','ccc']
