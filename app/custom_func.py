@@ -1,9 +1,11 @@
 import re
 import os
 
-def read_files(file_path):
-    with open(file_path, 'r', encoding='utf-8') as f:
+def read_files(file_path, kodek):
+    
+    with open(file_path, 'r', encoding=kodek) as f:
         content=f.read()
+        
     return content
     
     
@@ -54,7 +56,7 @@ def get_snippet_dict(data):
     return snippets
 
 
-def load_all_files(folder_path):
+def load_all_files(folder_path, kodek):
     files=os.listdir(folder_path)
     snippets_by_file = {}
     
@@ -66,7 +68,7 @@ def load_all_files(folder_path):
             continue
         
         
-        temp = read_files(file_path)
+        temp = read_files(file_path, kodek)
         temp = split_files(temp)
         snippet_dict = get_snippet_dict(temp)
         snippets_by_file.update({file:snippet_dict}) # dictionary of dictionaries
@@ -92,7 +94,7 @@ if __name__ == "__main__":
     # c = get_titles_list(b)
     # d = get_snippet_dict(b)
 
-    x = load_all_files("C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/")
+    x = load_all_files("C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/", kodek='utf-8')
     print(get_keys(x))
     y = get_inner_dict(x)
    
