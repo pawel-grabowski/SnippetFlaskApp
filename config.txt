@@ -1,1 +1,2 @@
-C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/
+C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/sql/|ansi
+C:/Users/Paweł/Documents/Projekty/SnippetFlaskApp/snippets/vba/|utf-8
