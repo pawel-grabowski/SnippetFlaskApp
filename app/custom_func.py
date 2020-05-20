@@ -3,8 +3,11 @@ import os
 
 def read_files(file_path, kodek):
     
-    with open(file_path, 'r', encoding=kodek) as f:
-        content=f.read()
+    try:
+        with open(file_path, 'r', encoding=kodek) as f:
+            content=f.read()
+    except:
+        print('Error while reading: ' + file_path + 'encoding: ' + kodek)
         
     return content
     

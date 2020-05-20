@@ -14,12 +14,15 @@ def index():
         
     for line in lines:
         line = line.strip('\n')
-        file_path=line.split('|')[0]
+        line_splitted = line.split('|')
+        print(line_splitted)
+        file_path=line_splitted[0]
 
-        if len(line.split('|'))>1:
-            kodek=line.split('|')[1]
+        if len(line_splitted)>1:
+            kodek=line_splitted[1]
         else: kodek='utf-8'
-
+        
+        print('Parsing ' + file_path + ' encoding: ' + kodek)
         temp_dict = cf.get_inner_dict(cf.load_all_files(file_path,kodek))
         snippets_dict.update(temp_dict)
      
